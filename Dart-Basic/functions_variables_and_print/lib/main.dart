@@ -1,14 +1,23 @@
 void main() {
-  String nome = "Maxel";
+  var pessoa = Pessoa("Maxel");
   int a = 1;
   int b = 2;
 
-  int c = soma(a, b);
+  var calc = Calculadora();
+  int c = calc.soma(a, b);
 
   print("Soma: $c");
-  print("Nome: $nome");
+  print("Nome: ${pessoa.nome}");
 }
 
-int soma(int a, int b) {
-  return a + b;
+class Calculadora {
+  int soma(int a, int b) {
+    return a + b;
+  }
+}
+
+class Pessoa {
+  String nome;
+
+  Pessoa(this.nome);
 }
