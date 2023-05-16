@@ -37,6 +37,8 @@ void main() {
 
   //Herança
   c1.acelerar(100);
+  //Mixin
+  c1.abastecer(10);
 }
 
 class Calculadora {
@@ -51,7 +53,7 @@ class Pessoa {
   Pessoa(this.nome);
 }
 
-class Carro extends Automovel{
+class Carro extends Automovel with Combustivel {
   String nome;
 
   Carro(this.nome);
@@ -60,5 +62,11 @@ class Carro extends Automovel{
 class Automovel {
   void acelerar(int velocidade) {
     print("Aumentando a velocidade em ${velocidade} km/h");
+  }
+}
+
+class Combustivel {
+  abastecer(int qtde) {
+    print("Colocando $qtde litros de combustível");
   }
 }
