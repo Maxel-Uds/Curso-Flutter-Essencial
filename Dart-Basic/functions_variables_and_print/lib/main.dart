@@ -25,6 +25,15 @@ void main() {
   for(Carro c in carros) {
     print("Nome: ${c.nome}");
   }
+
+  //Maps
+  var carrosMap = <String, Carro>{};
+  carrosMap["1"] = c1;
+  carrosMap["2"] = c2;
+
+  for(Carro c in carrosMap.values) {
+    print("Nome: ${c.nome}");
+  }
 }
 
 class Calculadora {
