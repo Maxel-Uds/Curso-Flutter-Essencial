@@ -39,6 +39,8 @@ void main() {
   c1.acelerar(100);
   //Mixin
   c1.abastecer(10);
+  //Lambda
+  print(c1);
 }
 
 class Calculadora {
@@ -57,6 +59,8 @@ class Carro extends Automovel with Combustivel {
   String nome;
 
   Carro(this.nome);
+
+  String toString() => nome;
 }
 
 class Automovel {
