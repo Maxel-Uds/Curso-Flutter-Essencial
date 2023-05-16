@@ -34,6 +34,9 @@ void main() {
   for(Carro c in carrosMap.values) {
     print("Nome: ${c.nome}");
   }
+
+  //Herança
+  c1.acelerar(100);
 }
 
 class Calculadora {
@@ -48,8 +51,14 @@ class Pessoa {
   Pessoa(this.nome);
 }
 
-class Carro {
+class Carro extends Automovel{
   String nome;
 
   Carro(this.nome);
+}
+
+class Automovel {
+  void acelerar(int velocidade) {
+    print("Aumentando a velocidade em ${velocidade} km/h");
+  }
 }
