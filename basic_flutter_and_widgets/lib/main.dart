@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
+
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: Colors.blue),
-        home: Scaffold(
-            appBar: AppBar(title: const Text('Dashboard')),
-            backgroundColor: Colors.red,
-        ));
+        home: const HomePage()
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Hello Flutter"),
+          centerTitle: true
+        ),
+        body: Container(color: Colors.yellow)
+    );
   }
 }
