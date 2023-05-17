@@ -10,17 +10,25 @@ class HomePage extends StatelessWidget {
         title: const Text("Hello Flutter"),
         centerTitle: true,
       ),
-      body: Container(
-        color: Colors.white,
-        child: const Center(
-          child: Text(
-            "Hello Flutter",
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.blue,
-            ),
-          ),
-        ),
+      body: _body(),
+    );
+  }
+
+  _body() {
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: _text(),
+      ),
+    );
+  }
+
+  _text() {
+    return const Text(
+      "Hello Flutter",
+      style: TextStyle(
+        fontSize: 30,
+        color: Colors.blue,
       ),
     );
   }
