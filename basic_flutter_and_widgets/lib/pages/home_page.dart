@@ -17,9 +17,13 @@ class HomePage extends StatelessWidget {
   _body() {
     return Container(
       color: Colors.white,
-      child: Center(
-        child: _button(),
-      ),
+      child: Column(
+        children: [
+          _button(),
+          _button(),
+          _button()
+        ],
+      )
     );
   }
 
