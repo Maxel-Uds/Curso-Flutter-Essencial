@@ -28,9 +28,9 @@ class HomePage extends StatelessWidget {
         ));
   }
 
-  SizedBox _pageView() {
-    return SizedBox(
-      width: 300,
+  _pageView() {
+    return Container(
+      margin: const EdgeInsets.all(20),
       height: 300,
       child: PageView(
         children: [
