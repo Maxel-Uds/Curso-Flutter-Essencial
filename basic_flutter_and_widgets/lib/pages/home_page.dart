@@ -15,15 +15,16 @@ class HomePage extends StatelessWidget {
   }
 
   _body() {
-    return Container(
-      color: Colors.green,
-      padding: const EdgeInsets.all(16),
+    return SingleChildScrollView(
       child: Container(
           width: double.infinity,
           color: Colors.yellow,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              _text(),
+              _pageView(),
+              _buttons(),
               _text(),
               _pageView(),
               _buttons(),
@@ -92,11 +93,14 @@ class HomePage extends StatelessWidget {
   }
 
   _text() {
-    return const Text(
-      "Hello Flutter",
-      style: TextStyle(
-        fontSize: 30,
-        color: Colors.blue,
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      child: const Text(
+        "Hello Flutter",
+        style: TextStyle(
+          fontSize: 30,
+          color: Colors.blue,
+        ),
       ),
     );
   }
