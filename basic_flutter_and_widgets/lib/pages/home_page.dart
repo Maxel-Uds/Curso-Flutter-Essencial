@@ -10,15 +10,20 @@ class HomePage extends StatelessWidget {
         title: const Text("Hello Flutter"),
         centerTitle: true,
       ),
-      body: _body(),
+      body: _body(context),
     );
   }
 
-  _body() {
+  _body(context) {
+
+    Size size = MediaQuery.of(context).size;
+
     return Container(
-      color: Colors.white,
-      child: Column(
+      height: size.height,
+      color: Colors.black,
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _button(),
           _button(),
