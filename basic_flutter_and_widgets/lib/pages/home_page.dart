@@ -16,21 +16,25 @@ class HomePage extends StatelessWidget {
 
   _body() {
     return Container(
-        width: double.infinity,
-        color: Colors.white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _text(),
-            _pageView(),
-            _buttons(),
-          ],
-        ));
+      color: Colors.green,
+      padding: const EdgeInsets.all(16),
+      child: Container(
+          width: double.infinity,
+          color: Colors.yellow,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _text(),
+              _pageView(),
+              _buttons(),
+            ],
+          )),
+    );
   }
 
   _pageView() {
     return Container(
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
       height: 300,
       child: PageView(
         children: [
@@ -51,9 +55,12 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [_button("ListView"), _button("Page 2"), _button("Page 3")],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_button("Snack"), _button("Dialog"), _button("Toast")],
+        Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [_button("Snack"), _button("Dialog"), _button("Toast")],
+          ),
         )
       ],
     );
@@ -63,8 +70,9 @@ class HomePage extends StatelessWidget {
     return ElevatedButton(
       onPressed: () => _onClick(),
       style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(const Size(100, 50)),
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => Colors.yellow),
+            MaterialStateColor.resolveWith((states) => Colors.blue),
       ),
       child: Text(
         text,
