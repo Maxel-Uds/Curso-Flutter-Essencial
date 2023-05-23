@@ -22,33 +22,41 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _text(),
-            _img(),
+            _pageView(),
             _buttons(),
           ],
         ));
   }
 
+  SizedBox _pageView() {
+    return SizedBox(
+      width: 300,
+      height: 300,
+      child: PageView(
+        children: [
+          _img("1"),
+          _img("2"),
+          _img("3"),
+          _img("4"),
+          _img("5"),
+        ],
+      ),
+    );
+  }
+
   _buttons() {
     return Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _button("ListView"),
-                  _button("Page 2"),
-                  _button("Page 3")
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _button("Snack"),
-                  _button("Dialog"),
-                  _button("Toast")
-                ],
-              )
-            ],
-          );
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_button("ListView"), _button("Page 2"), _button("Page 3")],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_button("Snack"), _button("Dialog"), _button("Toast")],
+        )
+      ],
+    );
   }
 
   _button(String text) {
@@ -69,11 +77,9 @@ class HomePage extends StatelessWidget {
     print("Olá Mundo!");
   }
 
-  _img() {
+  _img(String id) {
     return Image.asset(
-      "assets/images/dog1.png",
-      width: 300,
-      height: 300,
+      "assets/images/dog$id.png",
     );
   }
 
