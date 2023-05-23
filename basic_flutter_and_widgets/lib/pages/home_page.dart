@@ -18,9 +18,27 @@ class HomePage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Center(
-        child: _img(),
+        child: _button(),
       ),
     );
+  }
+
+  _button() {
+    return ElevatedButton(
+      onPressed: () => _onClick(),
+      style: ButtonStyle(
+        backgroundColor:
+            MaterialStateColor.resolveWith((states) => Colors.yellow),
+      ),
+      child: const Text(
+        "Olá Mundo!",
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
+  _onClick() {
+    print("Olá Mundo!");
   }
 
   _img() {
