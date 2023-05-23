@@ -20,20 +20,47 @@ class HomePage extends StatelessWidget {
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [_text(), _img(), _button()],
+          children: [
+            _text(),
+            _img(),
+            _buttons(),
+          ],
         ));
   }
 
-  _button() {
+  _buttons() {
+    return Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _button("ListView"),
+                  _button("Page 2"),
+                  _button("Page 3")
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _button("Snack"),
+                  _button("Dialog"),
+                  _button("Toast")
+                ],
+              )
+            ],
+          );
+  }
+
+  _button(String text) {
     return ElevatedButton(
       onPressed: () => _onClick(),
       style: ButtonStyle(
         backgroundColor:
             MaterialStateColor.resolveWith((states) => Colors.yellow),
       ),
-      child: const Text(
-        "Olá Mundo!",
-        style: TextStyle(color: Colors.black),
+      child: Text(
+        text,
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }
