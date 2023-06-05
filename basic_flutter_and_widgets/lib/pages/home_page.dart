@@ -1,3 +1,4 @@
+import 'package:basic_flutter_and_widgets/pages/hello_page1.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -80,7 +81,7 @@ class HomePage extends StatelessWidget {
   }
 
   _onClick(BuildContext context) {
-    Navigator.push(context, route);
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const HelloPage1()));
   }
 
   _img(String id) {
