@@ -10,24 +10,21 @@ class HomePage extends StatelessWidget {
         title: const Text("Hello Flutter"),
         centerTitle: true,
       ),
-      body: _body(),
+      body: _body(context),
     );
   }
 
-  _body() {
-    return SingleChildScrollView(
+  _body(BuildContext context) {
+    return Container(
       child: Container(
           width: double.infinity,
-          color: Colors.yellow,
+          color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _text(),
               _pageView(),
-              _buttons(),
-              _text(),
-              _pageView(),
-              _buttons(),
+              _buttons(context),
             ],
           )),
     );
@@ -49,27 +46,27 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _buttons() {
+  _buttons(BuildContext context) {
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_button("ListView"), _button("Page 2"), _button("Page 3")],
+          children: [_button("ListView", context), _button("Page 2", context), _button("Page 3", context)],
         ),
         Container(
           margin: const EdgeInsets.only(top: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [_button("Snack"), _button("Dialog"), _button("Toast")],
+            children: [_button("Snack", context), _button("Dialog", context), _button("Toast", context)],
           ),
         )
       ],
     );
   }
 
-  _button(String text) {
+  _button(String text, BuildContext context) {
     return ElevatedButton(
-      onPressed: () => _onClick(),
+      onPressed: () => _onClick(context),
       style: ButtonStyle(
         minimumSize: MaterialStateProperty.all(const Size(100, 50)),
         backgroundColor:
@@ -82,8 +79,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _onClick() {
-    print("Olá Mundo!");
+  _onClick(BuildContext context) {
+    Navigator.push(context, route);
   }
 
   _img(String id) {
