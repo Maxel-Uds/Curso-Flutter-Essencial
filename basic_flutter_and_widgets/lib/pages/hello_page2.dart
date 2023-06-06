@@ -10,6 +10,16 @@ class HelloPage2 extends StatelessWidget {
         title: const Text("Page 2"),
         centerTitle: true,
       ),
+      body: _body(context),
+    );
+  }
+
+  _body(BuildContext context) {
+    return Center(
+      child: ElevatedButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text("Voltar"),
+      ),
     );
   }
 }
