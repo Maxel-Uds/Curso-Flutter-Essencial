@@ -1,6 +1,7 @@
 import 'package:basic_flutter_and_widgets/pages/hello_page1.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page2.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page3.dart';
+import 'package:basic_flutter_and_widgets/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -54,31 +55,16 @@ class HomePage extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [_button("ListView", context, () => _onClickNavigator(context, const HelloPage1())), _button("Page 2", context, () => _onClickNavigator(context, const HelloPage2())), _button("Page 3", context, () => _onClickNavigator(context, const HelloPage3()))],
+          children: [BlueButton(text: "ListView", onClick: () => _onClickNavigator(context, const HelloPage1())), BlueButton(text: "Page 2", onClick: () => _onClickNavigator(context, const HelloPage2())), BlueButton(text: "Page 3", onClick: () => _onClickNavigator(context, const HelloPage3()))],
         ),
         Container(
           margin: const EdgeInsets.only(top: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [_button("Snack", context, _onClickSnack), _button("Dialog", context, _onClickDialog), _button("Toast", context, _onClickToast)],
+            children: [BlueButton(text:"Snack", onClick: _onClickSnack), BlueButton(text: "Dialog", onClick: _onClickDialog), BlueButton(text: "Toast", onClick: _onClickToast)],
           ),
         )
       ],
-    );
-  }
-
-  _button(String text, BuildContext context, Function onClick) {
-    return ElevatedButton(
-      onPressed: () => onClick(),
-      style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(const Size(100, 50)),
-        backgroundColor:
-            MaterialStateColor.resolveWith((states) => Colors.blue),
-      ),
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.black),
-      ),
     );
   }
 
