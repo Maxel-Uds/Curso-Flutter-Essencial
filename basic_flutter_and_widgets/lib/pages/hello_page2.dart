@@ -17,7 +17,7 @@ class HelloPage2 extends StatelessWidget {
   _body(BuildContext context) {
     return Center(
       child: ElevatedButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => Navigator.pop(context, "Tela 2"),
         child: const Text("Voltar"),
       ),
     );
