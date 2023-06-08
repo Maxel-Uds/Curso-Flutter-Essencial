@@ -29,6 +29,11 @@ class HelloListView extends StatelessWidget {
       Dog("Dog 3", "3"),
       Dog("Dog 4", "4"),
       Dog("Dog 5", "5"),
+      Dog("Dog 1", "1"),
+      Dog("Dog 2", "2"),
+      Dog("Dog 3", "3"),
+      Dog("Dog 4", "4"),
+      Dog("Dog 5", "5"),
     ];
 
     return ScrollConfiguration(
@@ -38,9 +43,9 @@ class HelloListView extends StatelessWidget {
           PointerDeviceKind.mouse,
         },
       ),
-      child: ListView.builder(
+      child: GridView.builder(
           itemCount: dogs.length,
-          itemExtent: 300,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (context, index) {
             return Stack(fit: StackFit.expand, children: [
               _img(dogs[index]),
