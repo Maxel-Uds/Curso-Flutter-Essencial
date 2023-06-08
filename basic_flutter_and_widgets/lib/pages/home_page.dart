@@ -2,6 +2,7 @@ import 'package:basic_flutter_and_widgets/pages/hello_listview.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page2.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page3.dart';
 import 'package:basic_flutter_and_widgets/widgets/blue_button.dart';
+import 'package:basic_flutter_and_widgets/widgets/drawer_list.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      drawer: const Drawer(),
+      drawer: const DrawerList(),
     );
   }
 
