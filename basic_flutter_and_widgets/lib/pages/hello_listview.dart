@@ -18,6 +18,10 @@ class HelloListView extends StatelessWidget {
         appBar: AppBar(
           title: const Text("ListView"),
           centerTitle: true,
+          actions: [
+            IconButton(onPressed: () { print("lista"); }, icon: const Icon(Icons.list)),
+            IconButton(onPressed: () { print("grid"); }, icon: const Icon(Icons.grid_on)),
+          ],
         ),
         body: _body(context));
   }
