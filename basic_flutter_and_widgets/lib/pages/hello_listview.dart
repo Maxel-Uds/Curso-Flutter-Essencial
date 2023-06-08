@@ -24,6 +24,7 @@ class HelloListView extends StatelessWidget {
         },
       ),
       child: ListView(
+        itemExtent: 500,
         children: [
           _img("1"),
           _img("2"),
@@ -38,6 +39,7 @@ class HelloListView extends StatelessWidget {
   _img(String id) {
     return Image.asset(
       "assets/images/dog$id.png",
+      fit: BoxFit.cover,
     );
   }
 }
