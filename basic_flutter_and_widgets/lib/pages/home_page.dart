@@ -2,6 +2,7 @@ import 'package:basic_flutter_and_widgets/pages/hello_listview.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page2.dart';
 import 'package:basic_flutter_and_widgets/pages/hello_page3.dart';
 import 'package:basic_flutter_and_widgets/widgets/blue_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -153,5 +154,15 @@ class HomePage extends StatelessWidget {
         });
   }
 
-  _onClickToast() {}
+  _onClickToast() {
+    Fluttertoast.showToast(
+        msg: "Flutter Toast",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
 }
