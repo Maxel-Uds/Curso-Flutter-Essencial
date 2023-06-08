@@ -9,8 +9,20 @@ class Dog {
   Dog(this.nome, this.fotoId);
 }
 
-class HelloListView extends StatelessWidget {
+/*
+Quando o código contido no onPressed: () { setState(() {}) } é executado
+o Flutter chama o método build() novamente e redesenha a tela
+*/
+
+class HelloListView extends StatefulWidget {
   const HelloListView({super.key});
+
+  @override
+  State<HelloListView> createState() => _HelloListViewState();
+}
+
+class _HelloListViewState extends State<HelloListView> {
+  bool _gridView = true;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +31,20 @@ class HelloListView extends StatelessWidget {
           title: const Text("ListView"),
           centerTitle: true,
           actions: [
-            IconButton(onPressed: () { print("lista"); }, icon: const Icon(Icons.list)),
-            IconButton(onPressed: () { print("grid"); }, icon: const Icon(Icons.grid_on)),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    _gridView = false;
+                  });
+                },
+                icon: const Icon(Icons.list)),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    _gridView = true;
+                  });
+                },
+                icon: const Icon(Icons.grid_on)),
           ],
         ),
         body: _body(context));
@@ -47,33 +71,48 @@ class HelloListView extends StatelessWidget {
           PointerDeviceKind.mouse,
         },
       ),
-      child: GridView.builder(
+      child: _view(dogs, _gridView),
+    );
+  }
+
+  _view(List<Dog> dogs, bool gridView) {
+    if (gridView) {
+      return GridView.builder(
           itemCount: dogs.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemBuilder: (context, index) {
-            return Stack(fit: StackFit.expand, children: [
-              _img(dogs[index]),
-              Container(
-                alignment: Alignment.topLeft,
-                child: Container(
-                  margin: const EdgeInsets.all(12),
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.black45,
-                    borderRadius: BorderRadius.circular(16)
-                  ),
-                  child: Text(
-                    dogs[index].nome,
-                    style: const TextStyle(
-                      fontSize: 26,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ]);
-          }),
-    );
+            return _itemView(dogs, index);
+          });
+    }
+
+    return ListView.builder(
+        itemExtent: 300,
+        itemCount: dogs.length,
+        itemBuilder: (context, index) {
+          return _itemView(dogs, index);
+        });
+  }
+
+  _itemView(List<Dog> dogs, int index) {
+    return Stack(fit: StackFit.expand, children: [
+      _img(dogs[index]),
+      Container(
+        alignment: Alignment.topLeft,
+        child: Container(
+          margin: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+              color: Colors.black45, borderRadius: BorderRadius.circular(16)),
+          child: Text(
+            dogs[index].nome,
+            style: const TextStyle(
+              fontSize: 26,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 
   _img(Dog dog) {

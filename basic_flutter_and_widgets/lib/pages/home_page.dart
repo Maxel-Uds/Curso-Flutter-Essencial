@@ -68,7 +68,7 @@ class HomePage extends StatelessWidget {
             BlueButton(
                 text: "ListView",
                 onClick: () =>
-                    _onClickNavigator(context, const HelloListView())),
+                    _onClickNavigator(context, HelloListView())),
             BlueButton(
                 text: "Page 2",
                 onClick: () => _onClickNavigator(context, const HelloPage2())),
