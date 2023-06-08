@@ -2,6 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+class Dog {
+  String nome;
+  String fotoId;
+
+  Dog(this.nome, this.fotoId);
+}
+
 class HelloListView extends StatelessWidget {
   const HelloListView({super.key});
 
@@ -16,12 +23,12 @@ class HelloListView extends StatelessWidget {
   }
 
   _body(BuildContext context) {
-    List<Widget> imgs = [
-      _img("1"),
-      _img("2"),
-      _img("3"),
-      _img("4"),
-      _img("5"),
+    List<Dog> dogs = [
+      Dog("Dog 1", "1"),
+      Dog("Dog 2", "2"),
+      Dog("Dog 3", "3"),
+      Dog("Dog 4", "4"),
+      Dog("Dog 5", "5"),
     ];
 
     return ScrollConfiguration(
@@ -32,17 +39,17 @@ class HelloListView extends StatelessWidget {
         },
       ),
       child: ListView.builder(
-          itemCount: imgs.length,
+          itemCount: dogs.length,
           itemExtent: 300,
           itemBuilder: (context, index) {
-          return imgs[index];
+          return _img(dogs[index]);
       }),
     );
   }
 
-  _img(String id) {
+  _img(Dog dog) {
     return Image.asset(
-      "assets/images/dog$id.png",
+      "assets/images/dog${dog.fotoId}.png",
       fit: BoxFit.cover,
     );
   }
