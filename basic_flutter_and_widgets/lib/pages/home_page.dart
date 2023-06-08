@@ -19,7 +19,28 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: _body(context),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () => _onClickFab(),
+          ),
+          /* Objeto usado para adicionar um espaço no sentido altura ou largura */
+          const SizedBox(
+            width: 20,
+          ),
+          FloatingActionButton(
+            child: const Icon(Icons.favorite),
+            onPressed: () => _onClickFab(),
+          ),
+        ],
+      ),
     );
+  }
+
+  _onClickFab() {
+    print("FAB");
   }
 
   _body(BuildContext context) {
@@ -27,7 +48,7 @@ class HomePage extends StatelessWidget {
         width: double.infinity,
         color: Colors.white,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             _text(),
             _pageView(context),
@@ -38,7 +59,7 @@ class HomePage extends StatelessWidget {
 
   _pageView(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20, bottom: 20),
+      margin: const EdgeInsets.only(top: 10, bottom: 10),
       height: 300,
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
@@ -110,7 +131,7 @@ class HomePage extends StatelessWidget {
 
   _text() {
     return Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: const EdgeInsets.only(top: 10),
       child: const Text(
         "Hello Flutter",
         style: TextStyle(
@@ -162,7 +183,6 @@ class HomePage extends StatelessWidget {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 }
