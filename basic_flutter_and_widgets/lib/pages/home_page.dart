@@ -14,30 +14,42 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Hello Flutter"),
-        centerTitle: true,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Hello Flutter"),
+          bottom: const TabBar(tabs: [
+            Tab(text: "Tab 1"),
+            Tab(text: "Tab 2"),
+          ]),
+          centerTitle: true,
+        ),
+        body: TabBarView(
+          children: [
+            _body(context),
+            _body(context),
+          ],
+        ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => _onClickFab(),
+            ),
+            /* Objeto usado para adicionar um espaço no sentido altura ou largura */
+            const SizedBox(
+              width: 20,
+            ),
+            FloatingActionButton(
+              child: const Icon(Icons.favorite),
+              onPressed: () => _onClickFab(),
+            ),
+          ],
+        ),
+        drawer: const DrawerList(),
       ),
-      body: _body(context),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () => _onClickFab(),
-          ),
-          /* Objeto usado para adicionar um espaço no sentido altura ou largura */
-          const SizedBox(
-            width: 20,
-          ),
-          FloatingActionButton(
-            child: const Icon(Icons.favorite),
-            onPressed: () => _onClickFab(),
-          ),
-        ],
-      ),
-      drawer: const DrawerList(),
     );
   }
 
