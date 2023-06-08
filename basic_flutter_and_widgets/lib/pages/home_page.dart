@@ -85,7 +85,8 @@ class HomePage extends StatelessWidget {
               children: [
                 BlueButton(
                     text: "Snack", onClick: () => _onClickSnack(context)),
-                BlueButton(text: "Dialog", onClick: _onClickDialog),
+                BlueButton(
+                    text: "Dialog", onClick: () => _onClickDialog(context)),
                 BlueButton(text: "Toast", onClick: _onClickToast)
               ],
             ),
@@ -133,7 +134,24 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  _onClickDialog() {}
+  _onClickDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Flutter Dialog!"),
+            actions: [
+              TextButton(
+                  child: const Text("Calcelar"),
+                  onPressed: () => Navigator.pop(context)),
+              TextButton(
+                  child: const Text("Ok"),
+                  onPressed: () => Navigator.pop(context)),
+            ],
+          );
+        });
+  }
 
   _onClickToast() {}
 }
