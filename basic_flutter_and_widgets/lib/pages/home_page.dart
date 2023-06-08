@@ -4,6 +4,8 @@ import 'package:basic_flutter_and_widgets/pages/hello_page3.dart';
 import 'package:basic_flutter_and_widgets/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/nav.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -69,8 +71,7 @@ class HomePage extends StatelessWidget {
   }
 
   _onClickNavigator(BuildContext context, Widget page) async {
-    String message = await Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => page));
-
+    String message = await push(context, page);
     print(message);
   }
 
