@@ -45,12 +45,20 @@ class HelloListView extends StatelessWidget {
             return Stack(fit: StackFit.expand, children: [
               _img(dogs[index]),
               Container(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  dogs[index].nome,
-                  style: const TextStyle(
-                    fontSize: 26,
-                    color: Colors.white,
+                alignment: Alignment.topLeft,
+                child: Container(
+                  margin: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.black45,
+                    borderRadius: BorderRadius.circular(16)
+                  ),
+                  child: Text(
+                    dogs[index].nome,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
