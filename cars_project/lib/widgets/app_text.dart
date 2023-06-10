@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AppText extends StatelessWidget {
   final String label;
   final String hint;
-  final bool? isPassInput;
+  final bool isPassInput;
   final TextEditingController controller;
   final FormFieldValidator<String> validator;
   final TextInputType? keyBoardType;
@@ -39,6 +39,9 @@ class AppText extends StatelessWidget {
         if (!nextFocus!.isNull) Focus.of(context).requestFocus(nextFocus);
       },
       decoration: InputDecoration(
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
         labelText: label,
         labelStyle: const TextStyle(fontSize: 20, color: Colors.grey),
         hintText: hint,

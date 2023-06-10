@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               inputAction: TextInputAction.next,
               nextFocus: _focusPass,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             AppText(
               label: "Senha",
               hint: "Digite a senha",
