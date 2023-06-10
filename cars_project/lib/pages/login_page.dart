@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final Row _iconsButtons;
+
+  const LoginPage(this._iconsButtons, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Login"),
+        title: const Text("Login", style: TextStyle(fontSize: 20)),
+        actions: [_iconsButtons],
       ),
       body: _body(),
     );
