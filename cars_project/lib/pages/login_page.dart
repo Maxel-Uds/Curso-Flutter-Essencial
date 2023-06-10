@@ -1,5 +1,5 @@
-import 'dart:js_interop';
-
+import 'package:cars_project/widgets/app_button.dart';
+import 'package:cars_project/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -38,9 +38,9 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            _textFormField(
-              "Login",
-              "Digite o login",
+            AppText(
+              label: "Login",
+              hint: "Digite o login",
               controller: _controllerLogin,
               validator: _validateLogin,
               keyBoardType: TextInputType.emailAddress,
@@ -48,9 +48,9 @@ class _LoginPageState extends State<LoginPage> {
               nextFocus: _focusPass,
             ),
             const SizedBox(height: 10),
-            _textFormField(
-              "Senha",
-              "Digite a senha",
+            AppText(
+              label: "Senha",
+              hint: "Digite a senha",
               controller: _controllerPass,
               isPassInput: true,
               validator: _validatePass,
@@ -58,52 +58,9 @@ class _LoginPageState extends State<LoginPage> {
               focus: _focusPass,
             ),
             const SizedBox(height: 20),
-            _button("Entrar", () => _onClickLogin())
+            AppButton(label: "Entrar", onPressed: () => _onClickLogin())
           ],
         ),
-      ),
-    );
-  }
-
-  _button(String label, Function onPressed) {
-    return SizedBox(
-      height: 50,
-      child: ElevatedButton(
-        onPressed: () => onPressed(),
-        child: Text(
-          label,
-          style: const TextStyle(fontSize: 22),
-        ),
-      ),
-    );
-  }
-
-  _textFormField(
-    String label,
-    String hint, {
-    bool isPassInput = false,
-    required TextEditingController controller,
-    required FormFieldValidator<String> validator,
-    required TextInputType keyBoardType,
-    TextInputAction? inputAction,
-    FocusNode? focus,
-    FocusNode? nextFocus,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassInput,
-      validator: (String? text) => validator(text),
-      keyboardType: keyBoardType,
-      textInputAction: inputAction,
-      focusNode: focus,
-      onFieldSubmitted: (String text) {
-        if (!nextFocus.isNull) Focus.of(context).requestFocus(nextFocus);
-      },
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(fontSize: 20, color: Colors.grey),
-        hintText: hint,
-        hintStyle: const TextStyle(fontSize: 16, height: 2),
       ),
     );
   }
