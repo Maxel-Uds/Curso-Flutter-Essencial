@@ -1,11 +1,24 @@
+import 'dart:js_interop';
+
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _controllerLogin = TextEditingController();
   final _controllerPass = TextEditingController();
+  final _focusPass = FocusNode();
 
-  LoginPage({super.key});
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +38,25 @@ class LoginPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            _textFormField("Login", "Digite o login", controller: _controllerLogin, validator: _validateLogin),
+            _textFormField(
+              "Login",
+              "Digite o login",
+              controller: _controllerLogin,
+              validator: _validateLogin,
+              keyBoardType: TextInputType.emailAddress,
+              inputAction: TextInputAction.next,
+              nextFocus: _focusPass,
+            ),
             const SizedBox(height: 10),
-            _textFormField("Senha", "Digite a senha", controller: _controllerPass, isPassInput: true, validator: _validatePass),
+            _textFormField(
+              "Senha",
+              "Digite a senha",
+              controller: _controllerPass,
+              isPassInput: true,
+              validator: _validatePass,
+              keyBoardType: TextInputType.number,
+              focus: _focusPass,
+            ),
             const SizedBox(height: 20),
             _button("Entrar", () => _onClickLogin())
           ],
@@ -49,11 +78,27 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _textFormField(String label, String hint, {bool isPassInput = false, required TextEditingController controller, required FormFieldValidator<String> validator}) {
+  _textFormField(
+    String label,
+    String hint, {
+    bool isPassInput = false,
+    required TextEditingController controller,
+    required FormFieldValidator<String> validator,
+    required TextInputType keyBoardType,
+    TextInputAction? inputAction,
+    FocusNode? focus,
+    FocusNode? nextFocus,
+  }) {
     return TextFormField(
       controller: controller,
       obscureText: isPassInput,
       validator: (String? text) => validator(text),
+      keyboardType: keyBoardType,
+      textInputAction: inputAction,
+      focusNode: focus,
+      onFieldSubmitted: (String text) {
+        if (!nextFocus.isNull) Focus.of(context).requestFocus(nextFocus);
+      },
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(fontSize: 20, color: Colors.grey),
@@ -64,15 +109,15 @@ class LoginPage extends StatelessWidget {
   }
 
   String? _validateLogin(String? login) {
-      return login!.isEmpty ? "Digite o login" : null;
+    return login!.isEmpty ? "Digite o login" : null;
   }
 
   String? _validatePass(String? pass) {
-    if(pass!.isEmpty) {
+    if (pass!.isEmpty) {
       return "Digite a senha";
     }
 
-    if(pass.length < 3) {
+    if (pass.length < 3) {
       return "A senha deve ter no mínimo 3 caracteres";
     }
 
@@ -80,7 +125,7 @@ class LoginPage extends StatelessWidget {
   }
 
   _onClickLogin() {
-    if(_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
 
