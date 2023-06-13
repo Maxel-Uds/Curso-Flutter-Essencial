@@ -1,3 +1,5 @@
+import 'package:cars_project/pages/home_page.dart';
+import 'package:cars_project/utils/nav.dart';
 import 'package:cars_project/widgets/app_button.dart';
 import 'package:cars_project/widgets/app_text.dart';
 import 'package:flutter/material.dart';
@@ -86,10 +88,6 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    String login = _controllerLogin.text;
-    String pass = _controllerPass.text;
-
-    print("Login $login");
-    print("Pass $pass");
+    push(context, const HomePage());
   }
 }

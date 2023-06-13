@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 
 class AppText extends StatelessWidget {
@@ -36,7 +34,7 @@ class AppText extends StatelessWidget {
       textInputAction: inputAction,
       focusNode: focus,
       onFieldSubmitted: (String text) {
-        if (!nextFocus!.isNull) Focus.of(context).requestFocus(nextFocus);
+        if (!(nextFocus == null)) Focus.of(context).requestFocus(nextFocus);
       },
       decoration: InputDecoration(
         border: const OutlineInputBorder(
