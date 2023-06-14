@@ -84,12 +84,15 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  _onClickLogin()  {
+  _onClickLogin() {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
     LoginApi.login(_controllerPass.text, _controllerLogin.text)
-        .then((isUserLogged) => isUserLogged ? push(context, const HomePage()) : false);
+        .then((object) {
+            print(object);
+            push(context, const HomePage());
+        });
   }
 }
