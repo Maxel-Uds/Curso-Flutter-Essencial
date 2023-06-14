@@ -1,3 +1,4 @@
+import 'package:cars_project/api/login_api.dart';
 import 'package:cars_project/pages/home_page.dart';
 import 'package:cars_project/utils/nav.dart';
 import 'package:cars_project/widgets/app_button.dart';
@@ -83,11 +84,12 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  _onClickLogin() {
+  _onClickLogin()  {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    push(context, const HomePage());
+    LoginApi.login(_controllerPass.text, _controllerLogin.text)
+        .then((isUserLogged) => isUserLogged ? push(context, const HomePage()) : false);
   }
 }
