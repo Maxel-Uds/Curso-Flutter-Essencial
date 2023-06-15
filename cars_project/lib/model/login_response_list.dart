@@ -1,5 +1,5 @@
 class LoginResponseList {
-  int baseStat = 0;
+  int baseStat;
 
   LoginResponseList.fromJson(Map<String, dynamic> json)
       : baseStat = json["base_stat"];

@@ -1,5 +1,6 @@
 import 'package:cars_project/api/login_api.dart';
 import 'package:cars_project/pages/home_page.dart';
+import 'package:cars_project/utils/alert.dart';
 import 'package:cars_project/utils/nav.dart';
 import 'package:cars_project/widgets/app_button.dart';
 import 'package:cars_project/widgets/app_text.dart';
@@ -90,9 +91,13 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     LoginApi.login(_controllerPass.text, _controllerLogin.text)
-        .then((object) {
-            print(object);
+        .then((response) {
+          if(response.ok!) {
+            print(response.result);
             push(context, const HomePage());
+          } else {
+            alert(context, response.msg);
+          }
         });
   }
 }

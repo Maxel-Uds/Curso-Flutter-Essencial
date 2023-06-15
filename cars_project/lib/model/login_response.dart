@@ -1,9 +1,9 @@
 import 'login_response_list.dart';
 
 class LoginResponse {
-  int height = 0;
-  int weight = 0;
-  List<LoginResponseList> list = [];
+  int? height;
+  int? weight;
+  List<LoginResponseList>? list;
 
   LoginResponse.fromJson(Map<String, dynamic> objectJson) {
     height = objectJson["height"];
