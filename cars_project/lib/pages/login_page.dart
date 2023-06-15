@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         .then((response) {
           if(response.ok!) {
             print(response.result);
-            push(context, const HomePage());
+            push(context, const HomePage(), replace: true);
           } else {
             alert(context, response.msg);
           }
