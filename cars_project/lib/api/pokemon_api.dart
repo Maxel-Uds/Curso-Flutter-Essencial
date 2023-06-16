@@ -27,10 +27,11 @@ class PokemonApi {
         //
         // return ApiResponse.error("Mensagem de erro do response");
 
+      //URL do sprite varia apenas o id do pokemon.
       return List.of(
         [
-          PokemonItem(name: "Bulbasaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"),
-          PokemonItem(name: "Ivysaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png"),
+          PokemonItem(name: "Bulbasaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"),
+          PokemonItem(name: "Ivysaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"),
         ]
       );
     } catch(error, exception) {

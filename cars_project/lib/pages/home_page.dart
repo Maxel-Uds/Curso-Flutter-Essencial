@@ -23,16 +23,42 @@ class HomePage extends StatelessWidget {
   Widget _body() {
     List<PokemonItem> items = _getPokemonItems();
 
-    return ListView.builder(
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return Row(
-            children: <Widget>[
-              Image.network(items.elementAt(index).sprite!),
-              Flexible(child: Text(items.elementAt(index).name!, style: const TextStyle(fontSize: 22), maxLines: 1))
-            ],
-          );
-        });
+    return Container(
+      padding: const EdgeInsets.all(2),
+      child: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return Card(
+              color: Colors.grey[200],
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Center(child: Image.network(items.elementAt(index).sprite!, width: 170)),
+                    Text(items.elementAt(index).name!, style: const TextStyle(fontSize: 22), maxLines: 1),
+                    const Text("Info", style: TextStyle(fontSize: 14), maxLines: 1),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        TextButton(
+                          child: const Text('INFO'),
+                          onPressed: () {/* ... */},
+                        ),
+                        const SizedBox(width: 8),
+                        TextButton(
+                          child: const Text('SHARE'),
+                          onPressed: () {/* ... */},
+                        ),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+    );
   }
 
   List<PokemonItem> _getPokemonItems() {
