@@ -6,13 +6,19 @@ import 'package:flutter/material.dart';
 import '../api/pokemon_api.dart';
 import '../utils/alert.dart';
 
-class PokemonsListViewPage extends StatelessWidget {
+class PokemonListViewPage extends StatefulWidget {
   final String letter;
 
-  const PokemonsListViewPage(this.letter, {super.key});
+  const PokemonListViewPage(this.letter, {super.key});
 
   @override
+  State<PokemonListViewPage> createState() => _PokemonListViewPageState();
+}
+
+class _PokemonListViewPageState extends State<PokemonListViewPage> with AutomaticKeepAliveClientMixin<PokemonListViewPage> {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return _body();
   }
 
@@ -72,6 +78,9 @@ class PokemonsListViewPage extends StatelessWidget {
   }
 
   List<PokemonResponse> _filterPokemons(List<PokemonResponse> pokemonList) {
-    return pokemonList.isNotEmpty ? pokemonList.where((pokemon) => pokemon.name.startsWith(letter)).toList() : [];
+    return pokemonList.isNotEmpty ? pokemonList.where((pokemon) => pokemon.name.startsWith(widget.letter)).toList() : [];
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

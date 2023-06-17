@@ -4,9 +4,14 @@ import 'package:cars_project/widgets/drawer_list.dart';
 import 'package:flutter/material.dart';
 
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -23,15 +28,13 @@ class HomePage extends StatelessWidget {
           ],),
         ),
         body: const TabBarView(children: [
-          PokemonsListViewPage(Letter.A),
-          PokemonsListViewPage(Letter.B),
-          PokemonsListViewPage(Letter.C),
-          PokemonsListViewPage(Letter.D)
+          PokemonListViewPage(Letter.A),
+          PokemonListViewPage(Letter.B),
+          PokemonListViewPage(Letter.C),
+          PokemonListViewPage(Letter.D)
         ]),
         drawer: DrawerList("Maxel Udson", "maxellopes32@gmail.com"),
       ),
     );
   }
-
-
 }
