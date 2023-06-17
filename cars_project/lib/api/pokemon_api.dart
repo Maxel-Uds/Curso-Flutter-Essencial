@@ -14,11 +14,11 @@ class Letter {
 
 class PokemonApi {
 
-  static Future<ApiResponse<List<PokemonResponse>>> getPokemonList() async {
+  static Future<ApiResponse<PokemonResponse>> getPokemonList(int offset) async {
     try {
-      var response = await http.get(Uri.parse("${Constants.POKE_API_URL}?limit=200&offset=20"));
+      var response = await http.get(Uri.parse("${Constants.POKE_API_URL}?limit=10&offset=$offset"));
 
-      if(response.statusCode == 200) return ApiResponse.ok(_mapPokemonResponseToList(jsonDecode(response.body)));
+      if(response.statusCode == 200) return ApiResponse.ok(PokemonResponse.fromJson(jsonDecode(response.body)));
 
       return ApiResponse.error("Mensagem de erro do response");
     } catch(error, exception) {
@@ -36,9 +36,5 @@ class PokemonApi {
     } catch(error, exception) {
       return ApiResponse.error("Erro no serviço de login. Erro $error");
     }
-  }
-
-  static List<PokemonResponse> _mapPokemonResponseToList(Map<String, dynamic> json)  {
-    return json["results"].map<PokemonResponse>((pokemonJson) => PokemonResponse.fromJson(pokemonJson)).toList();
   }
 }

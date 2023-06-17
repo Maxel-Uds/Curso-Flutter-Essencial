@@ -1,5 +1,5 @@
-import 'package:cars_project/model/api_response.dart';
 import 'package:cars_project/model/pokemon_response.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'package:flutter/material.dart';
 
@@ -16,34 +16,62 @@ class PokemonListViewPage extends StatefulWidget {
 }
 
 class _PokemonListViewPageState extends State<PokemonListViewPage> with AutomaticKeepAliveClientMixin<PokemonListViewPage> {
+  static int _offset = 0;
+
+  final PagingController<int, Pokemon> _pagingController = PagingController(firstPageKey: 0);
+
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPokemonList(pageKey);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return _body();
+    return _listView();
   }
 
-  Widget _body() {
-    Future<ApiResponse<List<PokemonResponse>>> pokemonResponsesFuture = PokemonApi.getPokemonList();
+  // Widget _body() {
+  //   return FutureBuilder(
+  //       future: pokemonResponsesFuture,
+  //       builder: (context, snapshot) {
+  //         if(snapshot.hasData) {
+  //           return snapshot.data!.ok ? _listView(snapshot.data!.result) : alert(context, snapshot.data?.msg);
+  //         }
+  //
+  //         return const Center(child: CircularProgressIndicator());
+  //       });
+  // }
 
-    return FutureBuilder(
-        future: pokemonResponsesFuture,
-        builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            return snapshot.data!.ok ? _listView(snapshot.data!.result) : alert(context, snapshot.data?.msg);
+  Future<void> _fetchPokemonList(int pageKey) async {
+      PokemonApi.getPokemonList(_offset).then((response) {
+          if(!response.ok) return _pagingController.error = alert(context, response.msg);
+
+          List<Pokemon> filteredPokemonList = _filterPokemonList(response.result.pokemonList);
+
+          if (response.result.isLastPage) {
+            _pagingController.appendLastPage(filteredPokemonList);
+          } else if(filteredPokemonList.isNotEmpty) {
+            _offset += 10;
+            final nextPageKey = pageKey + filteredPokemonList.length;
+            _pagingController.appendPage(filteredPokemonList, nextPageKey);
           }
-
-          return const Center(child: CircularProgressIndicator());
-        });
+          else {
+            _offset += 10;
+            _fetchPokemonList(pageKey);
+          }
+      });
   }
 
-  Container _listView(List<PokemonResponse> pokemonResponseList) {
-    List<PokemonResponse> filteredItems = _filterPokemons(pokemonResponseList);
-
+  Container _listView() {
     return Container(
       padding: const EdgeInsets.all(2),
-      child: ListView.builder(
-          itemCount: filteredItems.isNotEmpty ? filteredItems.length : 0,
-          itemBuilder: (context, index) {
+      child: PagedListView<int, Pokemon>(
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<Pokemon>(itemBuilder: (context, pokemon, index) {
             return Card(
               color: Colors.grey[200],
               child: Container(
@@ -51,8 +79,8 @@ class _PokemonListViewPageState extends State<PokemonListViewPage> with Automati
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Center(child: Image.network(filteredItems.elementAt(index).sprite, width: 170)),
-                    Text(filteredItems.elementAt(index).name, style: const TextStyle(fontSize: 22), maxLines: 1),
+                    Center(child: Image.network(pokemon.sprite, width: 170)),
+                    Text(pokemon.name, style: const TextStyle(fontSize: 22), maxLines: 1),
                     const Text("Info", style: TextStyle(fontSize: 14), maxLines: 1),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -74,13 +102,20 @@ class _PokemonListViewPageState extends State<PokemonListViewPage> with Automati
               ),
             );
           }),
+      ),
     );
   }
 
-  List<PokemonResponse> _filterPokemons(List<PokemonResponse> pokemonList) {
+  List<Pokemon> _filterPokemonList(List<Pokemon> pokemonList) {
     return pokemonList.isNotEmpty ? pokemonList.where((pokemon) => pokemon.name.startsWith(widget.letter)).toList() : [];
   }
 
   @override
   bool get wantKeepAlive => true;
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
 }
