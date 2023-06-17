@@ -5,11 +5,18 @@ import 'package:cars_project/model/pokemon_item.dart';
 import 'package:cars_project/model/pokemon_response.dart';
 import 'package:http/http.dart' as http;
 
+class Letter {
+  static const A = "a";
+  static const B = "b";
+  static const C = "c";
+  static const D = "d";
+}
+
 class PokemonApi {
 
   static Future<ApiResponse<List<PokemonResponse>>> getPokemonList() async {
     try {
-      var response = await http.get(Constants.POKE_API_URL);
+      var response = await http.get(Uri.parse("${Constants.POKE_API_URL}?limit=200&offset=20"));
 
       if(response.statusCode == 200) return ApiResponse.ok(_mapPokemonResponseToList(jsonDecode(response.body)));
 

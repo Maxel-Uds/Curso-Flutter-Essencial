@@ -1,7 +1,7 @@
 class ApiResponse<T> {
-  bool ok;
-  String? msg;
-  T? result;
+  late bool ok;
+  late String msg;
+  late T result;
 
   ApiResponse.ok(this.result, {this.ok = true });
 

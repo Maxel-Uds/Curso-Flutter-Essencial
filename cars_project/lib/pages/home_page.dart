@@ -1,3 +1,4 @@
+import 'package:cars_project/api/pokemon_api.dart';
 import 'package:cars_project/pages/pokemon_list_view_page.dart';
 import 'package:cars_project/widgets/drawer_list.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,10 @@ class HomePage extends StatelessWidget {
           ],),
         ),
         body: const TabBarView(children: [
-          PokemonsListViewPage(),
-          PokemonsListViewPage(),
-          PokemonsListViewPage(),
-          PokemonsListViewPage()
+          PokemonsListViewPage(Letter.A),
+          PokemonsListViewPage(Letter.B),
+          PokemonsListViewPage(Letter.C),
+          PokemonsListViewPage(Letter.D)
         ]),
         drawer: DrawerList("Maxel Udson", "maxellopes32@gmail.com"),
       ),

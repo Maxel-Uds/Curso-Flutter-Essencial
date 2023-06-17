@@ -7,7 +7,9 @@ import '../api/pokemon_api.dart';
 import '../utils/alert.dart';
 
 class PokemonsListViewPage extends StatelessWidget {
-  const PokemonsListViewPage({Key? key}) : super(key: key);
+  final String letter;
+
+  const PokemonsListViewPage(this.letter, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +23,20 @@ class PokemonsListViewPage extends StatelessWidget {
         future: pokemonResponsesFuture,
         builder: (context, snapshot) {
           if(snapshot.hasData) {
-            return snapshot.data!.ok ? _listView(snapshot.data?.result) : alert(context, snapshot.data?.msg);
+            return snapshot.data!.ok ? _listView(snapshot.data!.result) : alert(context, snapshot.data?.msg);
           }
 
           return const Center(child: CircularProgressIndicator());
         });
   }
 
-  Container _listView(List<PokemonResponse>? items) {
+  Container _listView(List<PokemonResponse> pokemonResponseList) {
+    List<PokemonResponse> filteredItems = _filterPokemons(pokemonResponseList);
+
     return Container(
       padding: const EdgeInsets.all(2),
       child: ListView.builder(
-          itemCount: items != null ? items.length : 0,
+          itemCount: filteredItems.isNotEmpty ? filteredItems.length : 0,
           itemBuilder: (context, index) {
             return Card(
               color: Colors.grey[200],
@@ -41,8 +45,8 @@ class PokemonsListViewPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Center(child: Image.network(items!.elementAt(index).sprite!, width: 170)),
-                    Text(items.elementAt(index).name!, style: const TextStyle(fontSize: 22), maxLines: 1),
+                    Center(child: Image.network(filteredItems.elementAt(index).sprite, width: 170)),
+                    Text(filteredItems.elementAt(index).name, style: const TextStyle(fontSize: 22), maxLines: 1),
                     const Text("Info", style: TextStyle(fontSize: 14), maxLines: 1),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -65,5 +69,9 @@ class PokemonsListViewPage extends StatelessWidget {
             );
           }),
     );
+  }
+
+  List<PokemonResponse> _filterPokemons(List<PokemonResponse> pokemonList) {
+    return pokemonList.isNotEmpty ? pokemonList.where((pokemon) => pokemon.name.startsWith(letter)).toList() : [];
   }
 }

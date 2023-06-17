@@ -1,18 +1,16 @@
 import 'package:cars_project/api/constants/constants.dart';
 
 class PokemonResponse {
-  String? id;
-  String? name;
-  String? url;
-  String? sprite;
-
-  PokemonResponse({this.name, this.url});
+  late String id;
+  late String name;
+  late String url;
+  late String sprite;
 
   PokemonResponse.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     url = json['url'];
     id = _getPokemonIdOfUrl();
-    sprite = Constants.getSpriteUrl(id!);
+    sprite = Constants.getSpriteUrl(id);
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +21,7 @@ class PokemonResponse {
   }
 
   String _getPokemonIdOfUrl() {
-    var segments = Uri.parse(url!).pathSegments;
+    var segments = Uri.parse(url).pathSegments;
     return segments.elementAt(segments.length - 2);
   }
 

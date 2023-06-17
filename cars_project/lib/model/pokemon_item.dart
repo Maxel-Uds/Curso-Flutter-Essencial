@@ -1,18 +1,10 @@
 class PokemonItem {
-  int? baseExperience;
-  int? height;
-  int? id;
-  String? sprite;
-  List<Types>? types;
-  int? weight;
-
-  PokemonItem(
-      {this.baseExperience,
-        this.height,
-        this.id,
-        this.sprite,
-        this.types,
-        this.weight});
+  late int baseExperience;
+  late int height;
+  late int id;
+  late String sprite;
+  late List<Types> types;
+  late int weight;
 
   PokemonItem.fromJson(Map<String, dynamic> json) {
     baseExperience = json['base_experience'];
@@ -22,7 +14,7 @@ class PokemonItem {
     if (json['types'] != null) {
       types = <Types>[];
       json['types'].forEach((v) {
-        types!.add(Types.fromJson(v));
+        types.add(Types.fromJson(v));
       });
     }
     weight = json['weight'];
@@ -35,7 +27,7 @@ class PokemonItem {
     data['id'] = id;
     data['sprite'] = sprite;
     if (types != null) {
-      data['types'] = types!.map((v) => v.toJson()).toList();
+      data['types'] = types.map((v) => v.toJson()).toList();
     }
     data['weight'] = weight;
     return data;
