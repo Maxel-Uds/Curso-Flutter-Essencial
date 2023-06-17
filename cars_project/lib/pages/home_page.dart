@@ -8,13 +8,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Pokemons"),
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Pokemons"),
+          bottom: const TabBar(tabs: [
+            Tab(text: "A"),
+            Tab(text: "B"),
+            Tab(text: "C"),
+            Tab(text: "D")
+          ],),
+        ),
+        body: const TabBarView(children: [
+          PokemonsListViewPage(),
+          PokemonsListViewPage(),
+          PokemonsListViewPage(),
+          PokemonsListViewPage()
+        ]),
+        drawer: DrawerList("Maxel Udson", "maxellopes32@gmail.com"),
       ),
-      body: const PokemonsListViewPage(),
-      drawer: DrawerList("Maxel Udson", "maxellopes32@gmail.com"),
     );
   }
 
