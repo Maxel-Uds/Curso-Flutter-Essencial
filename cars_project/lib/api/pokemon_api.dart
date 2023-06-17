@@ -1,46 +1,37 @@
 import 'dart:convert';
+import 'package:cars_project/api/constants/constants.dart';
+import 'package:cars_project/model/api_response.dart';
 import 'package:cars_project/model/pokemon_item.dart';
 import 'package:cars_project/model/pokemon_response.dart';
 import 'package:http/http.dart' as http;
 
 class PokemonApi {
-  static List<PokemonResponse> getPokemonList()  {
+
+  static Future<ApiResponse<List<PokemonResponse>>> getPokemonList() async {
     try {
-      // var response = await http.get('https://pokeapi.co/api/v2/pokemon');
+      var response = await http.get(Constants.POKE_API_URL);
 
-      // if(response.statusCode == 200) return ApiResponse.ok(_mapPokemonResponseToList(jsonDecode(response.body)));
+      if(response.statusCode == 200) return ApiResponse.ok(_mapPokemonResponseToList(jsonDecode(response.body)));
 
-      // return ApiResponse.error("Mensagem de erro do response");
-
-      return List.of([]);
+      return ApiResponse.error("Mensagem de erro do response");
     } catch(error, exception) {
-      // return ApiResponse.error("Erro no serviço de login. Erro $error");
-      return List.of([]);
+      return ApiResponse.error("Erro no serviço de login. Erro $error");
     }
   }
 
-  static List<PokemonItem> getPokemon(String name) {
+  static Future<ApiResponse<PokemonItem>> getPokemonByName(String name) async {
     try {
-        // var response = await http.get("https://pokeapi.co/api/v2/pokemon/$name");
-        //
-        // if(response.statusCode == 200) return ApiResponse.ok(PokemonItem.fromJson(jsonDecode(response.body)));
-        //
-        // return ApiResponse.error("Mensagem de erro do response");
+        var response = await http.get("${Constants.POKE_API_URL}/$name");
 
-      //URL do sprite varia apenas o id do pokemon.
-      return List.of(
-        [
-          PokemonItem(name: "Bulbasaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"),
-          PokemonItem(name: "Ivysaur", sprite: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"),
-        ]
-      );
+        if(response.statusCode == 200) return ApiResponse.ok(PokemonItem.fromJson(jsonDecode(response.body)));
+
+        return ApiResponse.error("Mensagem de erro do response");
     } catch(error, exception) {
-      // return ApiResponse.error("Erro no serviço de login. Erro $error");
-      return List.of([]);
+      return ApiResponse.error("Erro no serviço de login. Erro $error");
     }
   }
 
-  static _mapPokemonResponseToList(Map<String, dynamic> json)  {
+  static List<PokemonResponse> _mapPokemonResponseToList(Map<String, dynamic> json)  {
     return json["results"].map<PokemonResponse>((pokemonJson) => PokemonResponse.fromJson(pokemonJson)).toList();
   }
 }

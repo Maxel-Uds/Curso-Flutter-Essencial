@@ -1,15 +1,9 @@
 class ApiResponse<T> {
-  bool? ok;
+  bool ok;
   String? msg;
   T? result;
 
-  ApiResponse.ok(this.result) {
-    ok = true;
-  }
+  ApiResponse.ok(this.result, {this.ok = true });
 
-  ApiResponse.error(this.msg) {
-    ok = false;
-  }
-
-
+  ApiResponse.error(this.msg, {this.ok = false});
 }
