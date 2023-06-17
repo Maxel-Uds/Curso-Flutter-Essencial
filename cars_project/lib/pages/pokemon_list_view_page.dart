@@ -16,7 +16,7 @@ class PokemonListViewPage extends StatefulWidget {
 }
 
 class _PokemonListViewPageState extends State<PokemonListViewPage> with AutomaticKeepAliveClientMixin<PokemonListViewPage> {
-  static int _offset = 0;
+  static late int _offset;
 
   final PagingController<int, Pokemon> _pagingController = PagingController(firstPageKey: 0);
 
@@ -30,6 +30,7 @@ class _PokemonListViewPageState extends State<PokemonListViewPage> with Automati
 
   @override
   Widget build(BuildContext context) {
+    _offset = 0;
     super.build(context);
     return _listView();
   }
