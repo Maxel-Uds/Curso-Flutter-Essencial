@@ -81,8 +81,8 @@ class _PokemonListViewPageState extends State<PokemonListViewPage> with Automati
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Center(child: Image.network(pokemon.sprite, width: 170)),
-                    Text(pokemon.name, style: const TextStyle(fontSize: 22), maxLines: 1),
-                    const Text("Info", style: TextStyle(fontSize: 14), maxLines: 1),
+                    Text(pokemon.name, style: const TextStyle(fontSize: 22, color: Colors.black), maxLines: 1),
+                    const Text("Info", style: TextStyle(fontSize: 14, color: Colors.black), maxLines: 1),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
