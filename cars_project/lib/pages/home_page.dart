@@ -1,6 +1,7 @@
 import 'package:cars_project/api/pokemon_api.dart';
 import 'package:cars_project/main.dart';
 import 'package:cars_project/pages/pokemon_list_view_page.dart';
+import 'package:cars_project/utils/preferences.dart';
 import 'package:cars_project/widgets/drawer_list.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    _tabController.index = 2;
+
+    Preferences.getInt("tabIndex")
+      .then((index) => _tabController.index = index);
+
     _tabController.addListener(() {
-      print(_tabController.index);
+      Preferences.setInt("tabIndex", _tabController.index);
     });
   }
 
