@@ -17,7 +17,7 @@ class DrawerList extends StatelessWidget {
             FutureBuilder<LoginResponse>(
               future: LoginResponse.get(),
               builder: (context, snapshot) {
-              return snapshot.hasData ? _header(snapshot.data!.name, "maxellopes32@gmail.com", snapshot.data!.id) : Container();
+              return snapshot.hasData ? _header(snapshot.data!.name, "maxellopes32@gmail.com", snapshot.data!.id!) : Container();
             }),
             ListTile(
               leading: const Icon(Icons.logout),
@@ -31,7 +31,7 @@ class DrawerList extends StatelessWidget {
     );
   }
 
-  UserAccountsDrawerHeader _header(String name, String email, int id) {
+  UserAccountsDrawerHeader _header(String name, String email, String id) {
     return UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(backgroundImage: NetworkImage(Constants.getSpriteUrl(id.toString())), backgroundColor: Colors.white,),
             accountName: Text(name),
@@ -40,6 +40,7 @@ class DrawerList extends StatelessWidget {
   }
 
   _onClickLogout(BuildContext context) {
+    LoginResponse.clear();
     Navigator.pop(context);
     return push(context, const LoginPage(), replace: true);
   }

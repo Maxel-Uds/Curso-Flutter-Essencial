@@ -1,18 +1,22 @@
+import 'dart:async';
+
 import 'package:cars_project/utils/preferences.dart';
 import 'dart:convert' as convert;
 
 import 'login_response_list.dart';
 
 class LoginResponse {
-  late int id;
+  String? id;
   late String name;
   late int order;
   late int height;
   late int weight;
   late List<LoginResponseList> list;
 
+  LoginResponse.empty({id = ""});
+
   LoginResponse.fromJson(Map<String, dynamic> objectJson) {
-    id = objectJson['id'];
+    id = objectJson['id'].toString();
     name = objectJson['name'];
     order = objectJson['order'];
     height = objectJson['height'];
@@ -43,7 +47,11 @@ class LoginResponse {
 
   static Future<LoginResponse> get() {
     return Preferences.getString("user")
-    .then((object) => LoginResponse.fromJson(convert.json.decode(object)));
+    .then((object) => object != null && object.isNotEmpty ? LoginResponse.fromJson(convert.json.decode(object)) : LoginResponse.empty());
+  }
+
+  static void clear() {
+    Preferences.setString("user", "");
   }
 
   void save() {

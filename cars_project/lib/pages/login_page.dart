@@ -1,4 +1,5 @@
 import 'package:cars_project/api/login_api.dart';
+import 'package:cars_project/model/login_response.dart';
 import 'package:cars_project/pages/home_page.dart';
 import 'package:cars_project/utils/alert.dart';
 import 'package:cars_project/utils/nav.dart';
@@ -22,6 +23,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    LoginResponse.get().then((user) {
+      if(user.id != null) push(context, const HomePage(), replace: true);
+    });
   }
 
   @override
