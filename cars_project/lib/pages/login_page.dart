@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
     LoginApi.login(_controllerPass.text, _controllerLogin.text)
         .then((response) {
-          if(response.ok!) {
+          if(response.ok) {
             print(response.result);
             push(context, const HomePage(), replace: true);
           } else {

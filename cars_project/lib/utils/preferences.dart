@@ -12,4 +12,14 @@ class Preferences {
     var prefs = await SharedPreferences.getInstance();
     prefs.setInt(key, i);
   }
+
+  static void setString(String key, String s) async {
+    var prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, s);
+  }
+
+  static Future<String> getString(String key) async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
 }

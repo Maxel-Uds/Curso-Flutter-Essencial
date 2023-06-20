@@ -9,11 +9,15 @@ class LoginApi {
     try {
       var response = await http.get('https://pokeapi.co/api/v2/pokemon/1');
 
-      if(pass.length < 10 && response.statusCode == 200) return ApiResponse.ok(LoginResponse.fromJson(jsonDecode(response.body)));
+      if(pass.length < 10 && response.statusCode == 200) {
+        var user = LoginResponse.fromJson(jsonDecode(response.body));
+        user.save();
+        return ApiResponse.ok(user);
+      }
 
       return ApiResponse.error("Mensagem de erro do response");
     } catch(error, exception) {
-      return ApiResponse.error("Erro no serviço de login. Erro $error");
+      return ApiResponse.error("Erro no serviço de login. Erro $error, Exception: $exception");
     }
   }
 }
