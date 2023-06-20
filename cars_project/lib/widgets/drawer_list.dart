@@ -1,13 +1,12 @@
+import 'package:cars_project/api/constants/constants.dart';
+import 'package:cars_project/model/login_response.dart';
 import 'package:cars_project/pages/login_page.dart';
 import 'package:cars_project/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class DrawerList extends StatelessWidget {
 
-  String name;
-  String email;
-
-  DrawerList(this.name, this.email, {super.key});
+  const DrawerList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +14,11 @@ class DrawerList extends StatelessWidget {
       child: Drawer(
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://avatars.githubusercontent.com/u/78319246?s=96&v=4)"),
-              ),
-              accountName: Text(name),
-              accountEmail: Text(email),
-            ),
+            FutureBuilder<LoginResponse>(
+              future: LoginResponse.get(),
+              builder: (context, snapshot) {
+              return snapshot.hasData ? _header(snapshot.data!.name, "maxellopes32@gmail.com", snapshot.data!.id) : Container();
+            }),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
@@ -33,6 +29,14 @@ class DrawerList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  UserAccountsDrawerHeader _header(String name, String email, int id) {
+    return UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(backgroundImage: NetworkImage(Constants.getSpriteUrl(id.toString())), backgroundColor: Colors.white,),
+            accountName: Text(name),
+            accountEmail: Text(email),
+          );
   }
 
   _onClickLogout(BuildContext context) {

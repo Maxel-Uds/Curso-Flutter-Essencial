@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           PokemonListViewPage(Letter.D)
         ],
       ),
-      drawer: DrawerList("Maxel Udson", "maxellopes32@gmail.com"),
+      drawer: const DrawerList(),
     );
   }
 
