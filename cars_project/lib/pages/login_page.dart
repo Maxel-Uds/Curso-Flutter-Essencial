@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cars_project/api/login_api.dart';
 import 'package:cars_project/model/login_response.dart';
 import 'package:cars_project/pages/home_page.dart';
@@ -19,6 +21,8 @@ class _LoginPageState extends State<LoginPage> {
   final _controllerLogin = TextEditingController();
   final _controllerPass = TextEditingController();
   final _focusPass = FocusNode();
+  final _streamController = StreamController<bool>();
+  late Timer _timer;
 
   @override
   void initState() {
@@ -66,7 +70,13 @@ class _LoginPageState extends State<LoginPage> {
               focus: _focusPass,
             ),
             const SizedBox(height: 20),
-            AppButton(label: "Entrar", onPressed: () => _onClickLogin())
+            StreamBuilder<bool>(
+              initialData: false,
+              stream: _streamController.stream,
+              builder: (context, snapshot) {
+                return AppButton(label: "Entrar", onPressed: () => _onClickLogin(), showProgress: snapshot.data!,);
+              }
+            )
           ],
         ),
       ),
@@ -94,14 +104,26 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    LoginApi.login(_controllerPass.text, _controllerLogin.text)
-        .then((response) {
-          if(response.ok) {
-            print(response.result);
-            push(context, const HomePage(), replace: true);
-          } else {
-            alert(context, response.msg);
-          }
-        });
+    _streamController.add(true);
+
+    _timer = Timer(const Duration(seconds: 3), () {
+      LoginApi.login(_controllerPass.text, _controllerLogin.text)
+          .then((response) {
+              if(response.ok) {
+                    print(response.result);
+                    push(context, const HomePage(), replace: true);
+              } else {
+                    alert(context, response.msg);
+              }
+
+              _streamController.add(false);
+          });
+    });
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
+    super.dispose();
   }
 }
